@@ -7,7 +7,7 @@ app = {
         })});
         
         document.getElementById('restart').addEventListener('click', () => {
-            app.controller.view.restartBoard();
+            app.controller.restartBoard();
         })
     },
 
