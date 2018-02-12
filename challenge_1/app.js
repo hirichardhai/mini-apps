@@ -2,8 +2,8 @@ app = {
     init: () => {
         app.model.cells.forEach((cell) => {
             cell.addEventListener('click', () => {
-                app.controller.toggle(cell);
                 app.controller.storeLocation(cell.id);
+                app.controller.toggle(cell);
         })});
         
         document.getElementById('restart').addEventListener('click', () => {
@@ -13,27 +13,20 @@ app = {
 
     model: {
         current: 'X',
-        types: ['X', 'O'],
         cells: document.querySelectorAll("td"),
         currentMapping: [
             [], [], []
         ]
     },
-
     view: {
 
     },
-
     controller: {
         toggle: function(cell) {
             if (app.model.current == 'X') {
-                //when toggling, use X first and toggle
-                //model.current to false
                 cell.innerHTML = app.model.current;
                 app.model.current = 'O';
             } else {
-                //enteres if model.types = false, add O
-                //toggles model.current back to true
                 cell.innerHTML = app.model.current;
                 app.model.current = 'X';
             }
@@ -46,16 +39,27 @@ app = {
         },
         //takes cell.id and stores them into model.currentMapping
         storeLocation: (cellLocation) => {
+            var row = cellLocation[0];
+            var column = cellLocation[1];
             var cell = Number(cellLocation);
-            // if (cell == 1) {
-            //     app.model.currentMapping[0][0] = 
-            // }
-            app.controller.checkWinner();
+            app.model.currentMapping[row][column] = app.model.current;
+            app.controller.checkWinner(app.model.currentMapping);
             console.log(cellLocation);
-            console.log(typeof cellLocation)
         },
         //checks for winner
-        checkWinner: () => {
+        checkWinner: (board) => {
+            checkRows(board);
+            checkColumns(board);
+            checkDiagonals(board);
+        },
+        checkRows: (board) => {
+            // if (app.model.currentMapping)
+
+        },
+        checkColumns: (board) => {
+
+        },
+        checkDiagonals: (board) => {
 
         }
     }
