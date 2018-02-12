@@ -12,13 +12,12 @@ app = {
     },
 
     model: {
-        current: true,
+        current: 'X',
         types: ['X', 'O'],
         cells: document.querySelectorAll("td"),
         currentMapping: [
             [], [], []
         ]
-
     },
 
     view: {
@@ -27,16 +26,16 @@ app = {
 
     controller: {
         toggle: function(cell) {
-            if (app.model.current) {
+            if (app.model.current == 'X') {
                 //when toggling, use X first and toggle
                 //model.current to false
-                cell.innerHTML = app.model.types[0];
-                app.model.current = false;
+                cell.innerHTML = app.model.current;
+                app.model.current = 'O';
             } else {
                 //enteres if model.types = false, add O
                 //toggles model.current back to true
-                cell.innerHTML = 'O';
-                app.model.current = true;
+                cell.innerHTML = app.model.current;
+                app.model.current = 'X';
             }
         },
         //will grab all cells and reset their innerHTML to ''
@@ -48,9 +47,9 @@ app = {
         //takes cell.id and stores them into model.currentMapping
         storeLocation: (cellLocation) => {
             var cell = Number(cellLocation);
-            if (cell <= 3) {
-
-            }
+            // if (cell == 1) {
+            //     app.model.currentMapping[0][0] = 
+            // }
             app.controller.checkWinner();
             console.log(cellLocation);
             console.log(typeof cellLocation)
