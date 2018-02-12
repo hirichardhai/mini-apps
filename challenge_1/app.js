@@ -14,7 +14,7 @@ app = {
     model: {
         current: 'X',
         //O for false, X for true
-        boolean: true,
+        boolean: 1,
         cells: document.querySelectorAll("td"),
         currentMapping: [
             [], [], []
@@ -28,11 +28,11 @@ app = {
             if (app.model.boolean) {
                 cell.innerHTML = app.model.current;
                 app.model.current = 'O';
-                app.model.boolean = false;
+                app.model.boolean = 0;
             } else {
                 cell.innerHTML = app.model.current;
                 app.model.current = 'X';
-                app.model.boolean = true;
+                app.model.boolean = 1;
             }
         },
         //will grab all cells and reset their innerHTML to ''
@@ -58,8 +58,8 @@ app = {
             // checkDiagonals(board);
         },
         checkRows: (board) => {
-            board.reduce((row) => {
-
+            board.reduce((accu, row) => {
+                
             })
         },
         checkColumns: (board) => {
