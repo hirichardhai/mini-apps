@@ -13,6 +13,8 @@ app = {
 
     model: {
         current: 'X',
+        //O for false, X for true
+        boolean: true,
         cells: document.querySelectorAll("td"),
         currentMapping: [
             [], [], []
@@ -23,12 +25,14 @@ app = {
     },
     controller: {
         toggle: function(cell) {
-            if (app.model.current == 'X') {
+            if (app.model.boolean) {
                 cell.innerHTML = app.model.current;
                 app.model.current = 'O';
+                app.model.boolean = false;
             } else {
                 cell.innerHTML = app.model.current;
                 app.model.current = 'X';
+                app.model.boolean = true;
             }
         },
         //will grab all cells and reset their innerHTML to ''
@@ -36,25 +40,27 @@ app = {
             app.model.cells.forEach((cell) => {
                 cell.innerHTML = '';
             })
+            app.model.currentMapping = [[], [], []]
         },
         //takes cell.id and stores them into model.currentMapping
         storeLocation: (cellLocation) => {
             var row = cellLocation[0];
             var column = cellLocation[1];
             var cell = Number(cellLocation);
-            app.model.currentMapping[row][column] = app.model.current;
+            app.model.currentMapping[row][column] = app.model.boolean;
             app.controller.checkWinner(app.model.currentMapping);
             console.log(cellLocation);
         },
         //checks for winner
         checkWinner: (board) => {
-            checkRows(board);
-            checkColumns(board);
-            checkDiagonals(board);
+            // checkRows(board);
+            // checkColumns(board);
+            // checkDiagonals(board);
         },
         checkRows: (board) => {
-            // if (app.model.currentMapping)
+            board.reduce((row) => {
 
+            })
         },
         checkColumns: (board) => {
 
