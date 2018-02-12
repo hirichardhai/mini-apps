@@ -2,8 +2,8 @@ app = {
     init: () => {
         app.model.cells.forEach((cell) => {
             cell.addEventListener('click', () => {
-                console.log(cell.id)
-                app.controller.toggle(cell)
+                app.controller.toggle(cell);
+                app.controller.storeLocation(cell.id);
         })});
         
         document.getElementById('restart').addEventListener('click', () => {
@@ -14,7 +14,11 @@ app = {
     model: {
         current: true,
         types: ['X', 'O'],
-        cells: document.querySelectorAll("td")
+        cells: document.querySelectorAll("td"),
+        currentMapping: [
+            [], [], []
+        ]
+
     },
 
     view: {
@@ -40,6 +44,20 @@ app = {
             app.model.cells.forEach((cell) => {
                 cell.innerHTML = '';
             })
+        },
+        //takes cell.id and stores them into model.currentMapping
+        storeLocation: (cellLocation) => {
+            var cell = Number(cellLocation);
+            if (cell <= 3) {
+
+            }
+            app.controller.checkWinner();
+            console.log(cellLocation);
+            console.log(typeof cellLocation)
+        },
+        //checks for winner
+        checkWinner: () => {
+
         }
     }
 }
