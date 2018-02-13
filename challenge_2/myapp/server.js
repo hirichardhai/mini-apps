@@ -46,7 +46,6 @@ app.use(express.static('../client'));
 
 app.post('/', (req, res) => {
     console.log(req.body);
-    res.send(req.body);
     res.send(convertJSON(req.body));
 });
 

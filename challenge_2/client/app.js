@@ -1,7 +1,8 @@
 app = {
     init: () => {
         // app.fetch();
-        $('#submitButton').on('click', () => {
+        $('#submitButton').on('submit', (e) => {
+            e.preventDefault();
             app.send($('#input').val())
             // console.log($('#input').val())
         })
@@ -12,14 +13,21 @@ app = {
             type: 'POST',
             contentType: 'application/json',
             crossDomain: true,
-            data: JSON.stringify({data: data}),
-            success: (data) => {
+            data: data,
+            success: (returned) => {
                 console.log('success, sent!');
-                $('#convertedCSV').append(JSON.stringify(data));
+                app.parseResponse(returned);
             },
             error: (data) => {
                 console.error('failed to send');
             }
         })
+    },
+    parseResponse: (data) => {
+            var arr = data.split('\n');
+        arr.forEach((line) => {
+            $('#convertedCSV').append(`<div>${line}</div>`);
+        })
     }
 }
+
