@@ -7,16 +7,23 @@ app = {
     fetch: () => {
         $.ajax({
             url: app.server,
-            contentType: ''
-            data: 
+            type: 'GET',
+            contentType: '',
+            success: 
         })
     },
     send: () => {
         $.ajax({
             url: app.server,
-            contentType: 'application/JSON',
+            type: 'POST',
+            contentType: 'application/json',
             data: JSON.stringify(data),
-            
+            success: (data) => {
+                console.log('success, sent!');
+            },
+            error: (data) => {
+                console.error('failed to send');
+            }
         })
     }
 }
