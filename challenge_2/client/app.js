@@ -1,18 +1,27 @@
 app = {
-    server: 127.0.0.1:3000,
+    server: '127.0.0.1:3000',
 
     init: () => {
         app.fetch();
+        $('#submitButton').on('click', () => {
+            app.fetch($('#input').val());
+            console.log('clicked')
+        })
     },
     fetch: () => {
         $.ajax({
             url: app.server,
             type: 'GET',
-            contentType: '',
-            success: 
+            success: (data) => {
+                console.log('success')
+                console.log(data);
+            },
+            error: (data) => {
+                console.log('failed to fetch');
+            }
         })
     },
-    send: () => {
+    send: (data) => {
         $.ajax({
             url: app.server,
             type: 'POST',
