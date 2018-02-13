@@ -1,34 +1,21 @@
 app = {
-    server: '127.0.0.1:3000',
-
     init: () => {
-        app.fetch();
+        // app.fetch();
         $('#submitButton').on('click', () => {
-            app.fetch($('#input').val());
-            console.log('clicked')
-        })
-    },
-    fetch: () => {
-        $.ajax({
-            url: app.server,
-            type: 'GET',
-            success: (data) => {
-                console.log('success')
-                console.log(data);
-            },
-            error: (data) => {
-                console.log('failed to fetch');
-            }
+            app.send($('#input').val())
+            // console.log($('#input').val())
         })
     },
     send: (data) => {
         $.ajax({
-            url: app.server,
+            url: '/',
             type: 'POST',
             contentType: 'application/json',
-            data: JSON.stringify(data),
+            crossDomain: true,
+            data: JSON.stringify({data: data}),
             success: (data) => {
                 console.log('success, sent!');
+                $('#convertedCSV').append(JSON.stringify(data));
             },
             error: (data) => {
                 console.error('failed to send');
