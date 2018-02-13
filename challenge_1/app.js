@@ -13,7 +13,7 @@ app = {
 
     model: {
         current: 'X',
-        //O for false, X for true
+        //0 for Ooo and 1 for X
         boolean: 1,
         cells: document.querySelectorAll("td"),
         currentMapping: [
@@ -51,22 +51,62 @@ app = {
             app.controller.checkWinner(app.model.currentMapping);
             console.log(cellLocation);
         },
-        //checks for winner
-        checkWinner: (board) => {
-            // checkRows(board);
-            // checkColumns(board);
-            // checkDiagonals(board);
-        },
+
         checkRows: (board) => {
-            board.reduce((accu, row) => {
-                
-            })
+            for (var i = 0; i < board.length; i++) {
+                var total = 0;
+                for (var j = 0; j < board[i].length; j++) {
+                    total += board[i][j];
+                }
+                if (total == 0 && board[i].length == 3) {
+                    app.controller.alertWinner(false)
+                } else if (total == 3) {
+                    app.controller.alertWinner(true);
+                }
+            }
         },
         checkColumns: (board) => {
-
+            app.controller.checkColumn(board, 0);
+            app.controller.checkColumn(board, 1);
+            app.controller.checkColumn(board, 2);
+        },
+        checkColumn: (board, column) => {
+            if ((board[0][column] == 0) && (board[1][column] == 0) && (board[2][column] == 0)) {
+                app.controller.alertWinner(false)
+            }
+            if ((board[0][column] == 1) && (board[1][column] == 1) && (board[2][column] == 1)) {
+                app.controller.alertWinner(true)
+            }
         },
         checkDiagonals: (board) => {
-
+            if ((board[0][0] == 0) && (board[1][1] == 0) && (board[2][2] == 0)) {
+                app.controller.alertWinner(false)
+            }
+            if ((board[0][2] == 0) && (board[1][1] == 0) && (board[2][0] == 0)) {
+                app.controller.alertWinner(false)
+            }
+            if ((board[0][0] == 1) && (board[1][1] == 1) && (board[2][2] == 1)) {
+                app.controller.alertWinner(true)
+            }
+            if ((board[0][2] == 1) && (board[1][1] == 1) && (board[2][0] == 1)) {
+                app.controller.alertWinner(true)
+            }
+        },
+        alertWinner: (winner) => {
+            if (winner) {
+                for (var i = 0; i < 2; i++) {
+                    document.getElementsByClassName('winner')[i].innerHTML = 'CONGRATS X PLAYER, YOU WON!'
+                }
+            } else {
+                for (var i = 0; i < 2; i++) {
+                    document.getElementsByClassName('winner')[i].innerHTML = 'CONGRATS O PLAYER, YOU WON!'
+                }
+            }
+        },
+        checkWinner: (board) => {
+            app.controller.checkRows(board);
+            app.controller.checkColumns(board);
+            app.controller.checkDiagonals(board);
         }
     }
 }
