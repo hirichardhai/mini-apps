@@ -6,7 +6,7 @@
         <link rel='stylesheet' href='styles.css'></script>
     </head>
     <body>
-        <h3 align='center' class='winner'>Click below to start playing Tic-Tac-Toe!</h3>
+        <h3 align='center' class='winner' class='dogs'>Click below to start playing Tic-Tac-Toe!</h3>
         <table align='center'>
             <div align='center'>
                 <button id='restart' >Restart Game</button>
@@ -28,6 +28,14 @@
             </tr>
         </table>
         <h3 align='center' class='winner'></h3>
+        <div>
+            <div class="xPlayer" align="left" class='dogs'>X player score:
+                <div id="xScore"></div>
+            </div>
+            <div class="oPlayer" align="right" class='dogs'>O player score:
+                <div id="oScore"></div>
+            </div>
+        </div>
         <script src='app.js'></script>
         <script>app.init();</script>
     </body>

@@ -9,6 +9,9 @@ app = {
         document.getElementById('restart').addEventListener('click', () => {
             app.controller.restartBoard();
         })
+
+        document.getElementById('oScore').innerHTML = app.model.oScore;
+        document.getElementById('xScore').innerHTML = app.model.xScore;
     },
 
     model: {
@@ -18,7 +21,9 @@ app = {
         cells: document.querySelectorAll("td"),
         currentMapping: [
             [], [], []
-        ]
+        ],
+        xScore: 0,
+        oScore: 0
     },
     view: {
 
@@ -97,10 +102,16 @@ app = {
                 for (var i = 0; i < 2; i++) {
                     document.getElementsByClassName('winner')[i].innerHTML = 'CONGRATS X PLAYER, YOU WON!'
                 }
+            app.model.xScore++;
+            document.getElementById('xScore').innerHTML = app.model.xScore;
+            
             } else {
                 for (var i = 0; i < 2; i++) {
                     document.getElementsByClassName('winner')[i].innerHTML = 'CONGRATS O PLAYER, YOU WON!'
                 }
+            app.model.oScore++;
+            document.getElementById('oScore').innerHTML = app.model.oScore;
+
             }
         },
         checkWinner: (board) => {
