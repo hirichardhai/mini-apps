@@ -22,13 +22,19 @@ class Table extends React.Component {
   }
 
   render() {
-    let piecesHolder = [];
-    
+    // let rows = [];
+    // for (var i = 0; i < this.state.rowSize; i++) {
+    //   let cell = [];
+    //   for (var j = 0; j < this.state.columnSize; j++) {
+    //     let cellID = i * 7 + j
+    //     cell.push(<Piece )
+    //   }
+    // }
 
     return (
     <table align='center'>
       <tr>
-        <Piece />
+        <Piece id='13'/>
       </tr>
     </table>
     )
@@ -37,7 +43,7 @@ class Table extends React.Component {
 
 var Piece = (props) => (
     <td>
-      test1
+      test123
     </td>
 )
 
