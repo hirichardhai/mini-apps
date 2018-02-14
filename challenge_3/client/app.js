@@ -1,11 +1,5 @@
-// import Bootstrap from '../Bootstrap/dist/css/bootstrap.css';
-// import { Button } from 'react-bootstrap';
-// import Button from 'react-bootstrap/lib/Button';
-
-
-// class App extends React.Component {
 var App = (props) => (
-  <div>
+  <div style={{textAlign:"center"}}>
     <Table />
   </div>
 )
@@ -22,28 +16,27 @@ class Table extends React.Component {
   }
 
   render() {
-    // let rows = [];
-    // for (var i = 0; i < this.state.rowSize; i++) {
-    //   let cell = [];
-    //   for (var j = 0; j < this.state.columnSize; j++) {
-    //     let cellID = i * 7 + j
-    //     cell.push(<Piece )
-    //   }
-    // }
+    let rows = [];
+    for (var i = 0; i < this.state.rowSize; i++) {
+      let cell = [];
+      for (var j = 0; j < this.state.columnSize; j++) {
+        let cellID = i * 7 + j
+        cell.push(<Piece id={cellID} />)
+      }
+      rows.push(<tr>{cell}</tr>)
+    }
 
     return (
-    <table align='center'>
-      <tr>
-        <Piece id='13'/>
-      </tr>
-    </table>
-    )
-  }
+      <table align='center'>
+        {rows}
+      </table>
+      )
+    }
 }
 
 var Piece = (props) => (
-    <td>
-      test123
+    <td className={props.id}>
+      test1234
     </td>
 )
 
