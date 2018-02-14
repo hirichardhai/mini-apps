@@ -36,7 +36,7 @@ class Table extends React.Component {
 
 var Piece = (props) => (
     <td className={props.id}>
-      test1234
+      
     </td>
 )
 

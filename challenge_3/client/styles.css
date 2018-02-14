@@ -2,6 +2,8 @@ table {
     padding:10px;
     margin: auto;
     background-color:#0099ff;
+    border: solid black;
+    margin-top: 80px;
 }
 
 td {
@@ -10,4 +12,5 @@ td {
     width: 60px;
     border-radius: 50%;
     padding: 10px;
+    background-color: white;
 }
