@@ -11,25 +11,38 @@ class Table extends React.Component {
       board: [ [],[],[],[],[],[] ],
       board2: [],
       rowSize: 6,
-      columnSize: 7
-
+      columnSize: 7,
+      colorRed: 'red',
+      colorYellow: 'yellow',
+      colorBoolean: true
     }
   }
+
+  changeCellColor() {
+    this.setState({
+      colorBoolean: !this.state.colorBoolean
+    })
+    console.log('clicked')
+    }
 
   addColumn() {
 
   }
 
   render() {
+    var style = {
+      'background-color': this.state.colorBoolean ? this.state.colorRed : this.state.colorYellow
+    }
     let rows = [];
     for (var i = 0; i < this.state.rowSize; i++) {
       let cell = [];
       for (var j = 0; j < this.state.columnSize; j++) {
         let cellID = (i * 7 + j) + 1
-        cell.push(<Piece id={cellID} />)
+        cell.push(<Piece style={style} onClick={this.changeCellColor.bind(this)} id={cellID} />)
       }
       rows.push(<tr>{cell}</tr>)
     }
+
     return (
       <table align='center'>
         {rows}
@@ -39,7 +52,7 @@ class Table extends React.Component {
 }
 
 var Piece = (props) => (
-    <td className={props.id}>
+    <td className={props.id} onClick={props.onClick}>
       
     </td>
 )
