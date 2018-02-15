@@ -18,11 +18,12 @@ class Table extends React.Component {
     }
   }
 
-  changeCellColor() {
+  changeCellColor(id) {
     this.setState({
       colorBoolean: !this.state.colorBoolean
     })
     console.log('clicked')
+    console.log(id, 'id number here');
     }
 
   addColumn() {
@@ -52,7 +53,7 @@ class Table extends React.Component {
 }
 
 var Piece = (props) => (
-    <td className={props.id} onClick={props.onClick}>
+    <td style={props.style} className={props.id} onClick={() => props.onClick(props.id)}>
       
     </td>
 )
