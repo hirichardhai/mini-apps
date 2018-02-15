@@ -35,7 +35,6 @@ class Table extends React.Component {
     }
     this.addCoordinateToBoard(id - 1)
     console.log('clicked')
-    console.log(id, 'id number here');
     
     }
 
@@ -43,19 +42,30 @@ class Table extends React.Component {
     var realId = Number(id);
     var column = realId % 7;
     var row = Math.floor(realId/7);
-    console.log('hey', this.state.colorBoolean)
+    var tempColor;
+
     if (this.state.colorBoolean == 0) {
-      this.state.board[row][column] = this.state.colors[this.state.colorBoolean + 1]
+      this.state.board[row][column] = this.state.colors[this.state.colorBoolean + 1];
+      tempColor = this.state.colors[this.state.colorBoolean + 1]
+
     }
     if (this.state.colorBoolean == 1) {
-      this.state.board[row][column] = this.state.colors[this.state.colorBoolean + 1]
+      this.state.board[row][column] = this.state.colors[this.state.colorBoolean + 1];
+      tempColor = this.state.colors[this.state.colorBoolean + 1];
+
     }
     if (this.state.colorBoolean == 2) {
-      this.state.board[row][column] = this.state.colors[this.state.colorBoolean - 1]
+      this.state.board[row][column] = this.state.colors[this.state.colorBoolean - 1];
+      tempColor = this.state.colors[this.state.colorBoolean - 1]
     }
     globalBoard = this.state.board;
-    checkWinner(id);
+    console.log('current color used', tempColor)
+    console.log('current id used', id);
+    console.log('current board state', this.state.board);
+
+    this.checkWinner(this.state.board, id, this.state.colors[this.state.colorBoolean]);
   }
+
   checkRows(board, id, color) {
     var realId = Number(id)
     var rowId = Math.floor(realId/7);
@@ -112,7 +122,7 @@ class Table extends React.Component {
       }
       if (colorTotal == 4) {
         console.log('won!!!');
-        winner(color);
+        // winner(color);
       }
       startingColumn++
     }
@@ -135,16 +145,20 @@ class Table extends React.Component {
       }
       if (colorTotal == 4) {
       console.log('won')
-      winner(color);
+      // winner(color);
     }
       startingColumn--
     }
   }
   
-  winner(board, id, color) {
-    
+  checkWinner(board, id, color) {
+    this.checkRows(board, id, color);
+    this.checkColumns(board, id, color);
+    this.checkMajorDiagonal(board, id, color);
+    this.checkMinorDiagonal(board, id, color);
   }
-  checkColumns = (board, id, color) => {
+
+  checkColumns(board, id, color) {
   var realId = Number(id);
   var column = realId % 7;
   
