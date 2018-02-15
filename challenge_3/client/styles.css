@@ -14,3 +14,7 @@ td {
     padding: 10px;
     background-color: white;
 }
+
+[class='3'] {
+    background-color: red;
+}
