@@ -3,7 +3,7 @@ var App = (props) => (
     <Table />
   </div>
 )
-
+var globalBoard;
 class Table extends React.Component {
   constructor(props) {
     super(props);
@@ -12,27 +12,160 @@ class Table extends React.Component {
       board2: [],
       rowSize: 6,
       columnSize: 7,
-      colorRed: 'red',
-      colorYellow: 'yellow',
-      colorBoolean: true
+      colors: ['white', 'red', 'yellow'],
+      colorBoolean: 0
     }
   }
 
   changeCellColor(id) {
-    this.setState({
-      colorBoolean: !this.state.colorBoolean
-    })
+    if (this.state.colorBoolean == 0) {
+      this.setState({
+        colorBoolean: 1
+      })
+    }
+    if (this.state.colorBoolean == 1) {
+      this.setState({
+        colorBoolean: 2
+      })
+    }
+    if (this.state.colorBoolean == 2) {
+      this.setState({
+        colorBoolean: 1
+      })
+    }
+    this.addCoordinateToBoard(id - 1)
     console.log('clicked')
     console.log(id, 'id number here');
+    
     }
 
-  addColumn() {
-
+  addCoordinateToBoard(id) {
+    var realId = Number(id);
+    var column = realId % 7;
+    var row = Math.floor(realId/7);
+    console.log('hey', this.state.colorBoolean)
+    if (this.state.colorBoolean == 0) {
+      this.state.board[row][column] = this.state.colors[this.state.colorBoolean + 1]
+    }
+    if (this.state.colorBoolean == 1) {
+      this.state.board[row][column] = this.state.colors[this.state.colorBoolean + 1]
+    }
+    if (this.state.colorBoolean == 2) {
+      this.state.board[row][column] = this.state.colors[this.state.colorBoolean - 1]
+    }
+    globalBoard = this.state.board;
+    checkWinner(id);
   }
+  checkRows(board, id, color) {
+    var realId = Number(id)
+    var rowId = Math.floor(realId/7);
+    var row = board[rowId] 
+  
+    for (var i = 0; i < 7; i++) {
+      var colorTotal = 0
+      for (var j = 0; j < 4; j++) {
+        if ((i+j < 7) && (i+j >= 0) && (row[i + j] !== undefined) && (row[i + j] == color)) {
+          colorTotal++;
+        }
+      }
+      if (colorTotal == 4) {
+  //       winner(color);
+  console.log('rows work')
+      }
+    }
+  
+  }
+  
+  checkColumns(board, id, color) {
+    var realId = Number(id);
+    var column = realId % 7;
+    
+    for (var i = 0; i < 6; i++) {
+      var colorTotal = 0;
+      for (var j = 0; j < 4; j++) {
+        if ((i+j < 6) && (i+j >= 0) && (board[i + j][column] !== undefined) && (board[i + j][column] == color)) {
+          colorTotal++;
+        }
+      }
+      if (colorTotal == 4) {
+  //       winner(color);
+  console.log('columns work')
+  
+      }
+    }
+  }
+  
+  checkMajorDiagonal(board, id, color) {
+    var realId = Number(id);
+    var column = realId % 7;
+    var row = Math.floor(realId/7);
+    var startingColumn = column - row;
+  
+    for (var i = 0; i < 6; i++) {
+      var colorTotal = 0;
+      for (var j = 0; j < 4; j++) {
+        if ((startingColumn + j) >= 0 && (startingColumn + j) < 7) {
+          if (board[i + j][startingColumn + j] !== undefined && board[i + j][startingColumn + j] == color) {
+            colorTotal++
+          }
+        }
+      }
+      if (colorTotal == 4) {
+        console.log('won!!!');
+        winner(color);
+      }
+      startingColumn++
+    }
+  }
+  
+  checkMinorDiagonal(board, id, color) {
+    var realId = Number(id);
+    var column = realId % 7;
+    var row = Math.floor(realId/7);
+    var startingColumn = column + row
+  
+    for (var i = 0; i < 6; i++) {
+      var colorTotal = 0;
+      for (var j = 0; j < 4; j++) {
+        if ((startingColumn - j) >= 0 && (startingColumn - j) < 7) {
+          if (board[i + j][startingColumn - j] !== undefined && board[i + j][startingColumn - j] == color) {
+            colorTotal++
+          }
+        }
+      }
+      if (colorTotal == 4) {
+      console.log('won')
+      winner(color);
+    }
+      startingColumn--
+    }
+  }
+  
+  winner(board, id, color) {
+    
+  }
+  checkColumns = (board, id, color) => {
+  var realId = Number(id);
+  var column = realId % 7;
+  
+  for (var i = 0; i < 6; i++) {
+    var colorTotal = 0;
+    for (var j = 0; j < 4; j++) {
+      if ((i+j < 6) && (i+j >= 0) && (board[i + j][column] !== undefined) && (board[i + j][column] == color)) {
+        colorTotal++;
+      }
+    }
+    if (colorTotal == 4) {
+//       winner(color);
+console.log('columns work')
+
+    }
+  }
+}
 
   render() {
     var style = {
-      'background-color': this.state.colorBoolean ? this.state.colorRed : this.state.colorYellow
+      'backgroundColor': this.state.colors[this.state.colorBoolean]
     }
     let rows = [];
     for (var i = 0; i < this.state.rowSize; i++) {
@@ -60,88 +193,3 @@ var Piece = (props) => (
 
 ReactDOM.render(<App />, document.getElementById("app"));
 
-var checkRows = (board, id, color) => {
-  var realId = Number(id)
-  var rowId = Math.floor(realId/7);
-  var row = board[rowId] 
-
-  for (var i = 0; i < 7; i++) {
-    var colorTotal = 0
-    for (var j = 0; j < 4; j++) {
-      if ((i+j < 7) && (i+j >= 0) && (row[i + j] !== undefined) && (row[i + j] == color)) {
-        colorTotal++;
-      }
-    }
-    if (colorTotal == 4) {
-//       winner(color);
-console.log('rows work')
-    }
-  }
-
-}
-
-var checkColumns = (board, id, color) => {
-  var realId = Number(id);
-  var column = realId % 7;
-  
-  for (var i = 0; i < 6; i++) {
-    var colorTotal = 0;
-    for (var j = 0; j < 4; j++) {
-      if ((i+j < 6) && (i+j >= 0) && (board[i + j][column] !== undefined) && (board[i + j][column] == color)) {
-        colorTotal++;
-      }
-    }
-    if (colorTotal == 4) {
-//       winner(color);
-console.log('columns work')
-
-    }
-  }
-}
-
-var checkMajorDiagonal = (board, id, color) => {
-  var realId = Number(id);
-  var column = realId % 7;
-  var row = Math.floor(realId/7);
-  var startingColumn = column - row;
-
-  for (var i = 0; i < 6; i++) {
-    var colorTotal = 0;
-    for (var j = 0; j < 4; j++) {
-      if ((startingColumn + j) >= 0 && (startingColumn + j) < 7) {
-        if (board[i + j][startingColumn + j] !== undefined && board[i + j][startingColumn + j] == color) {
-          colorTotal++
-        }
-      }
-//       winner(color);
-    }
-    if (colorTotal == 4) {
-      console.log('won!!!');
-      winner(color);
-    }
-    startingColumn++
-  }
-}
-
-var checkMinorDiagonal = (board, id, color) => {
-  var realId = Number(id);
-  var column = realId % 7;
-  var row = Math.floor(realId/7);
-  var startingColumn = column + row
-
-  for (var i = 0; i < 6; i++) {
-    var colorTotal = 0;
-    for (var j = 0; j < 4; j++) {
-      if ((startingColumn - j) >= 0 && (startingColumn - j) < 7) {
-        if (board[i + j][startingColumn - j] !== undefined && board[i + j][startingColumn - j] == color) {
-          colorTotal++
-        }
-      }
-    }
-    if (colorTotal == 4) {
-    console.log('won')
-    winner(color);
-  }
-    startingColumn--
-  }
-}
