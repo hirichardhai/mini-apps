@@ -114,7 +114,7 @@ class Table extends React.Component {
     for (var i = 0; i < 6; i++) {
       var colorTotal = 0;
       for (var j = 0; j < 4; j++) {
-        if ((startingColumn + j) >= 0 && (startingColumn + j) < 7) {
+        if ((startingColumn + j) >= 0 && (startingColumn + j) < 7 && i+j < 7 && board[i+j] !== undefined) {
           if (board[i + j][startingColumn + j] !== undefined && board[i + j][startingColumn + j] == color) {
             colorTotal++
           }
@@ -137,7 +137,7 @@ class Table extends React.Component {
     for (var i = 0; i < 6; i++) {
       var colorTotal = 0;
       for (var j = 0; j < 4; j++) {
-        if ((startingColumn - j) >= 0 && (startingColumn - j) < 7) {
+        if ((startingColumn - j) >= 0 && (startingColumn - j) < 7 && (i + j < 7) && board[i+j] !== undefined) {
           if (board[i + j][startingColumn - j] !== undefined && board[i + j][startingColumn - j] == color) {
             colorTotal++
           }
