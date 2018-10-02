@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang='en'>
+    <head>
+        <meta charset='utf-8'>
+        <title>richard pure javascript timer</title>
+        <link rel='stylesheet' href='styles.css'>
+    </head>
+    <body>
+        <header>Richard's Clock and Countdown Timer</header>
+        <div id='main'>
+            Current Time: <div id="clock"></div>
+            <div id='countdownTo'></div>
+            <div id='countdownTimer'></div>
+            <form>
+                <input placeholder='new date' type='text' id='textBox'>
+                <input 
+                type='button' 
+                value='Submit' 
+                onclick="app.controller.newDate(document.getElementById('textBox').value)">
+            </form>
+        </div>
+        <script src='app.js'></script>
+    </body>
+</html>
