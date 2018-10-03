@@ -55,4 +55,3 @@ app = {
 
 app.init();
 
-window.app = app;
